@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["react"],
+  "globals": {
+    "document": "writeable",
+    "window": "readonly"
+  },
+  "rules": {
+    "no-undef": ["error"],
+    "quotes": ["error", "single"],
+    "eol-last": ["error", "always"]
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+  ]
+}
