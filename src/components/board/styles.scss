@@ -3,7 +3,7 @@
 .board {
   background-color: #2288ff;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   margin: 0 auto;
   
@@ -14,7 +14,7 @@
 
   &__row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 12.5%;
     justify-content: space-between;
   }
