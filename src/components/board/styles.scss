@@ -1,0 +1,37 @@
+@import '../../mixins/breakpoints.scss';
+
+.board {
+  background-color: #2288ff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+  
+  width: 70%;
+  padding: 0.5em;
+
+ 
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    height: 12.5%;
+    justify-content: space-between;
+  }
+
+  
+  &__slot {    
+    $slot-dim: 4vw;
+
+    background-color: white;
+    border-radius: 50%;
+    margin: 0.7em;
+    height: $slot-dim;
+    width: $slot-dim;
+
+    @include max-width(phone) {
+      margin: 0.1em;
+    }
+    
+  }
+}
