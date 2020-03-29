@@ -19,12 +19,12 @@ describe('Board', () => {
     });
   });
 
-  it('creates a board with r rows and c slots for each row', () => {
+  it('creates a board with c rows and r slots for each row', () => {
     const r = 10;
     const c = 6;
     const { container } = render(<Board rows={ r } columns={ c } />);
 
-    expect(container.getElementsByClassName('board__row').length).toBe(r);
+    expect(container.getElementsByClassName('board__row').length).toBe(c);
     expect(container.getElementsByClassName('board__slot').length).toBe(r*c);
   });
   

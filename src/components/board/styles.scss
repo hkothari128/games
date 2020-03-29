@@ -5,18 +5,20 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0 auto;
-  
-  width: 70%;
   padding: 0.5em;
 
- 
+  &__entry {
+    opacity: 10%;
+  }
 
   &__row {
     display: flex;
     flex-direction: column;
-    height: 12.5%;
     justify-content: space-between;
+
+    &--hovering{
+      opacity: 70%;
+    }
   }
 
   
@@ -28,6 +30,14 @@
     margin: 0.7em;
     height: $slot-dim;
     width: $slot-dim;
+
+    &--1 {
+      background-color: red;
+    }
+
+    &--2 {
+      background-color: blue;
+    }
 
     @include max-width(phone) {
       margin: 0.1em;

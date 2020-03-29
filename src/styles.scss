@@ -1,8 +1,10 @@
 .app {
-  left: 1em;
+  display: flex;
+  justify-content: space-around;
+  left: 1.6em;
   margin: 0 1em;
   position: fixed;
-  right: 1em;
+  right: 1.6em;
   top: 50%;
   transform: translateY(-50%);
 }

@@ -1,0 +1,27 @@
+.coin {
+  $coin-dim: 4vw;
+
+  border: 1px solid;
+  border-radius: 50%;
+  height: $coin-dim;
+  width: $coin-dim;
+  margin: auto;
+
+  &--1 {
+    background-color: #f00;
+  }
+
+  &--2 {
+    background-color: #00f;
+  }
+
+  &--active {
+    // border: 2px solid green;
+    &:hover {
+      cursor: grab;
+    }
+  }
+  &--dragging {
+    cursor: grab;
+  }
+}
