@@ -1,32 +1,50 @@
 @import '../../mixins/breakpoints.scss';
 
+$slot-dim: 3vw;
+
+.player-1 {
+  box-sizing: border-box;
+  box-shadow: inset 1px 1px 1px 0.5px;
+  background-color: red;
+}
+
+.player-2 {
+  box-sizing: border-box;
+  box-shadow: inset 1px 1px 1px 0.5px;
+  background-color: blue;
+}
+
 .board {
-  background-color: #2288ff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0.5em;
 
   &__entry {
-    opacity: 10%;
+    border-radius: 50%;
+    margin: 0.7em;
+    height: $slot-dim;
+    width: $slot-dim;
   }
 
+  
   &__row {
+    background-color: #2288ff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 
     &--hovering{
       opacity: 70%;
     }
   }
 
-  
   &__slot {    
-    $slot-dim: 4vw;
-
-    background-color: white;
+    background-color: #2299ff;
     border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: inset 1px 1px 1px 0.5px;
     margin: 0.7em;
     height: $slot-dim;
     width: $slot-dim;
@@ -37,6 +55,17 @@
 
     &--2 {
       background-color: blue;
+    }
+
+    @keyframes glowing {
+      0% { border: 2px solid green; }
+      40% { border: 5px solid green; }
+      60% { border: 5px solid green; }
+      100% { border: 2px solid green; }
+    }
+
+    &--winner {
+      animation: glowing 0.5s infinite;
     }
 
     @include max-width(phone) {
