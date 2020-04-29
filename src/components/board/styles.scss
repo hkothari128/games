@@ -22,9 +22,13 @@ $slot-dim: 3vw;
 
   &__entry {
     border-radius: 50%;
-    margin: 0.7em;
+    
     height: $slot-dim;
     width: $slot-dim;
+    z-index: 1;
+    position: relative;
+    top: -0.7em;
+    left: 0.7em;
   }
 
   
@@ -33,11 +37,7 @@ $slot-dim: 3vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-
-    &--hovering{
-      opacity: 70%;
-    }
+    align-items: center ; 
   }
 
   &__slot {    
@@ -48,7 +48,7 @@ $slot-dim: 3vw;
     margin: 0.7em;
     height: $slot-dim;
     width: $slot-dim;
-
+    position: relative;
     &--1 {
       background-color: red;
     }

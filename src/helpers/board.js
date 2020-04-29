@@ -16,18 +16,21 @@ const handleHover = (action, rowId, boardState, playerId) => {
     
   }
   else if (action === 'leave') {
-    slot.classList.remove(`player-${playerId}`);
-    
+    slot.className = 'board__entry'
   }
 }
 
 const dropAnimation = (up, down, duration) => {
   const diff = down.getBoundingClientRect().top - up.getBoundingClientRect().top;
+  // up.classList.add('player-1');
   up.animate([
     // keyframes
-    { transform: `translateY(${0}px)` }, 
+    { transform: `translateY(${0}px)` },
+    { transform: `translateY(${diff/2}px)` },
     { transform: `translateY(${diff}px)` },
-    { transform: `translateY(${diff - 30}px)` },
+    { transform: `translateY(${diff - 10}px)` },
+    { transform: `translateY(${diff}px)` },
+    { transform: `translateY(${diff - 5}px)` },
     { transform: `translateY(${diff}px)` },
   
   ], { 
@@ -41,19 +44,37 @@ const sleep = (duration) => {
   return new Promise(resolve => setTimeout(resolve, duration));
 }
 
+
+
 const handleClick = (rowId, boardState, updateBoardState, playerId) => {
-
-
   const entrySlot = getEntrySlot(rowId);
-  
+  !entrySlot.classList.contains(`player-${playerId}`) && entrySlot.classList.add(`player-${playerId}`);
   const topId = boardState.top[rowId];
   const targetSlot = getSlot(rowId,topId);
-  const duration = 600;
-  dropAnimation(entrySlot, targetSlot, duration);
+  // console.log( document.getElementsByClassName('board__row').map(()=>"hi"));
+  Array.from(document.getElementsByClassName('board__row')).forEach((row)=>{
+    row.style.pointerEvents = "none";
+  });
+  const clone = entrySlot.cloneNode(true)
+  
+  clone.style.position = 'absolute';
+  
+  const { top, bottom, left, right, height } = entrySlot.getBoundingClientRect();
+  console.log(top,bottom,left,right, height);
+  clone.style.left = left + "px";
+  clone.style.right = right + "px";
+  clone.style.top = top + "px";
+  clone.style.bottom = bottom + "px";
+  document.body.appendChild(clone);
+
+  const duration = 700;
+  entrySlot.classList.remove(`player-${playerId}`);
+  
+  dropAnimation(clone, targetSlot, duration);
   
   sleep(duration).then(()=>{
-    entrySlot.classList.remove(`player-${playerId}`);
-    
+   
+    document.body.removeChild(clone)
     const newBoardState = { ...boardState };
     newBoardState.top[rowId] = topId - 1;
     newBoardState.board[rowId][topId] = playerId;
@@ -96,17 +117,7 @@ const playTurn = (boardState, updateBoardState, playerId) => {
 
   const availableRows = boardState.top.map((top, idx) =>  (top > 0 ? idx : 0)).filter(top=>!!top);
   const rowId = availableRows[Math.floor(Math.random() * availableRows.length)];
-
-  // console.log(rowId,"COMP")
-  const entrySlot = getEntrySlot(rowId);
-  
-  const topId = boardState.top[rowId];
-  const targetSlot = getSlot(rowId,topId);
-
-  simulateClick(targetSlot);
-  // const duration = 600;
-  // dropAnimation(entrySlot, targetSlot, duration);
-  
+  handleClick(rowId, boardState, updateBoardState, playerId)  
   // sleep(duration).then(()=>{
   //   entrySlot.classList.remove(`player-${playerId}`);
     

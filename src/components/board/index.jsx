@@ -37,6 +37,9 @@ const Board = ({ rows, columns, playerId, togglePlayer, isWin, setWinner, runnin
     }
     else {
       // playTurn(boardState, updateBoardState, playerId);
+      Array.from(document.getElementsByClassName('board__row')).forEach((row)=>{
+        row.style.pointerEvents = "auto";
+      });
       togglePlayer(playerId);
     }
   }, [boardState])

@@ -11,7 +11,7 @@ import Timer from './components/timer';
 const App = () => {
   const [playerId, updatePlayer] = useState(1);
   const [winner, setWinner] = useState(0);
-  const computerId = 3;
+  const computerId = 2;
 
   const togglePlayer = (playerId) => {
     updatePlayer(playerId == 1 ? 2 : 1);
