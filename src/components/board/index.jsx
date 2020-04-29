@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { classList, allowDrop, drop, leaveDrop, initBoardState, handleWin, handleHover, handleClick } from '../../helpers';
+import { classList, initBoardState, handleWin, handleHover, handleClick, playTurn } from '../../helpers';
 import './styles.scss';
 
 
 
 
-const Board = ({ rows, columns, playerId, togglePlayer, isWin, setWinner, running }) => {
+const Board = ({ rows, columns, playerId, togglePlayer, isWin, setWinner, running, computerTurn }) => {
   const [boardState, updateBoardState] = useState(initBoardState(rows, columns));
+
+  // console.log(computerTurn);
+  // if (computerTurn) {
+  //   playTurn(boardState, updateBoardState, playerId);
+  //   // togglePlayer(playerId);
+  // }
+
+  useEffect(()=>{
+    if (computerTurn) {
+      playTurn(boardState, updateBoardState, playerId);
+      // togglePlayer(playerId);
+    }
+  }, [computerTurn])
 
   useEffect(() => {
     if(boardState.lastPlayed === null){
@@ -22,7 +35,8 @@ const Board = ({ rows, columns, playerId, togglePlayer, isWin, setWinner, runnin
       handleWin(winnerSlots);
       setWinner(playerId);
     }
-    else{
+    else {
+      // playTurn(boardState, updateBoardState, playerId);
       togglePlayer(playerId);
     }
   }, [boardState])

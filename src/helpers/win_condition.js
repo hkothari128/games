@@ -2,75 +2,92 @@ const slotsToWin = 4;
 
 const isWin = (board, rowId, slotId) => {
     const target = board[rowId][slotId];
-    
+    console.log(board,rowId,slotId,target)
     return (
-      getLeftMost(board, rowId, slotId, target) ||
-      getRightMost(board, rowId, slotId, target) ||
-      getBottomMost(board, rowId, slotId, target) ||
-      getLeftDownMost(board, rowId, slotId, target) ||
-      getRightDownMost(board, rowId, slotId, target)
+      checkRight(board, rowId, slotId, target) ||
+      checkBottom(board, rowId, slotId, target) ||
+      checkLeftDown(board, rowId, slotId, target) ||
+      checkRightDown(board, rowId, slotId, target)
     );
 }
 
 const getLeftMost = (board, rowId, slotId, target) => {
-  let count = 1;
-  const selected = []
-  while( rowId > 0 && board[rowId][slotId] === target){
-    selected.push([rowId, slotId]);
-    count += 1;
-    rowId -= 1;
+  while( rowId >= 0 && board[rowId][slotId] === target){
+    rowId -=1;
   }
-  selected.push([rowId, slotId]);
+  
+  return [rowId+1, slotId];
+}
+
+const getTopRightMost = (board, rowId, slotId, target) => {
+  while( rowId < board.length && slotId>=0 && board[rowId][slotId] === target){
+    rowId +=1;
+    slotId -= 1;
+  }
+  
+  return [rowId-1, slotId+1];
+}
+
+const getTopLeftMost = (board, rowId, slotId, target) => {
+  while( rowId >=0 && slotId>=0 && board[rowId][slotId] === target){
+    rowId -=1;
+    slotId -= 1;
+  }
+  
+  return [rowId+1, slotId+1];
+}
+
+const checkRight = (board, rowId, slotId, target) => {
+  let [row, slot] = getLeftMost(board, rowId, slotId,target);
+  let count = 0;
+  const selected = []
+  while( row < board.length && board[row][slot] === target){
+    selected.push([row, slot]);
+    count += 1;
+    row  += 1;
+  }
+  // selected.push([rowId, slotId]);
   return count === slotsToWin ? selected : false;
 }
 
-const getRightMost = (board, rowId, slotId, target) => {
-  let count = 1;
+const checkBottom = (board, rowId, slotId, target) => {
+  let [row, slot] = [rowId, slotId];
+  let count = 0;
   const selected = []
-  while( rowId < (board.length - 1) && board[rowId][slotId] === target){
-    selected.push([rowId, slotId]);
+  while( slot < board[0].length && board[row][slot] === target){
+    selected.push([row, slot]);
     count += 1;
-    rowId += 1;
+    slot += 1;
   }
-  selected.push([rowId, slotId]);
-  return count === slotsToWin ? selected : false;;
-}
-
-const getBottomMost = (board, rowId, slotId, target) => {
-  let count = 1;
-  const selected = []
-  while( slotId < board[0].length - 1 && board[rowId][slotId] === target){
-    selected.push([rowId, slotId]);
-    count += 1;
-    slotId += 1;
-  }
-  selected.push([rowId, slotId]);
+  // selected.push([rowId, slotId]);
   return count === slotsToWin ? selected : false;
 }
 
-const getLeftDownMost = (board, rowId, slotId, target) => {
-  let count = 1;
+const checkLeftDown = (board, rowId, slotId, target) => {
+  let [row, slot] = getTopRightMost(board, rowId, slotId,target);
+  let count = 0;
   const selected = []
-  while( rowId>0 && slotId < board[0].length - 1 && board[rowId][slotId] === target){
-    selected.push([rowId, slotId]);
+  while( row>0 && slot < board[0].length && board[row][slot] === target){
+    selected.push([row, slot]);
     count += 1;
-    slotId += 1;
-    rowId -= 1;
+    slot += 1;
+    row -= 1;
   }
-  selected.push([rowId, slotId]);
+  // selected.push([rowId, slotId]);
   return count === slotsToWin ? selected : false;
 }
 
-const getRightDownMost = (board, rowId, slotId, target) => {
-  let count = 1;
+const checkRightDown = (board, rowId, slotId, target) => {
+  let [row, slot] = getTopLeftMost(board, rowId, slotId,target);
+  let count = 0;
   const selected = []
-  while( rowId < board.length && slotId < board[0].length - 1 && board[rowId][slotId] === target){
-    selected.push([rowId, slotId]);
+  while( row < board.length && slot < board[0].length && board[row][slot] === target){
+    selected.push([row, slot]);
     count += 1;
-    slotId += 1;
-    rowId += 1;
+    slot += 1;
+    row += 1;
   }
-  selected.push([rowId, slotId]);
+  // selected.push([rowId, slotId]);
   return count === slotsToWin ? selected : false;
 }
 

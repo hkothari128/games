@@ -1,5 +1,3 @@
-import { Easing } from 'tween'
-
 const getSlot = (rowId, slotId) => {
   const query = `.board__slot[value='{"row":${rowId},"slot":${slotId}}']`;
   return document.querySelector(query);
@@ -24,8 +22,6 @@ const handleHover = (action, rowId, boardState, playerId) => {
 }
 
 const dropAnimation = (up, down, duration) => {
-
-  console.log(up,up.getBoundingClientRect().top)
   const diff = down.getBoundingClientRect().top - up.getBoundingClientRect().top;
   up.animate([
     // keyframes
@@ -39,7 +35,6 @@ const dropAnimation = (up, down, duration) => {
     duration: duration,
     iterations: 1,
   });
-  return true;
 }
 
 const sleep = (duration) => {
@@ -47,6 +42,7 @@ const sleep = (duration) => {
 }
 
 const handleClick = (rowId, boardState, updateBoardState, playerId) => {
+
 
   const entrySlot = getEntrySlot(rowId);
   
@@ -68,22 +64,6 @@ const handleClick = (rowId, boardState, updateBoardState, playerId) => {
   
 }
 
-
-const drop = (e, boardState, updateBoardState, playerId) => {
-  e.preventDefault();
-  e.target.nextSibling.classList.remove('board__row--hovering');
-  const newBoardState = { ...boardState };
-  const rowId = parseInt(e.target.getAttribute('value'));
-  const topId = newBoardState.top[rowId];
-  if(topId == 0)
-    return;
-
-  newBoardState.top[rowId] = topId - 1;
-  newBoardState.board[rowId][topId] = playerId;
-  newBoardState.lastPlayed = { rowId, slotId: topId };
-  updateBoardState(newBoardState);
-};
-
 const handleWin = (winnerSlots) => {
   winnerSlots.reverse().forEach(slotIds => {
     const [rowNo, slotNo] = slotIds;
@@ -91,15 +71,6 @@ const handleWin = (winnerSlots) => {
     slot.classList.add('board__slot--winner');
   });
 }
-
-const allowDrop = (e) => {
-  e.preventDefault();
-  e.target.nextSibling.classList.add("board__row--hovering");
-};
-
-const leaveDrop = (e) => {
-  e.target.nextSibling.classList.remove("board__row--hovering");
-};
 
 const initBoardState = (rows, columns) => (
   {
@@ -109,4 +80,44 @@ const initBoardState = (rows, columns) => (
   }
 );
 
-export { drop, allowDrop, leaveDrop, initBoardState, handleWin, handleHover, handleClick };
+
+const simulateClick = (elem) => {
+	// Create our event (with options)
+	var evt = new MouseEvent('click', {
+		bubbles: true,
+		cancelable: true,
+		view: window
+	});
+	// If cancelled, don't dispatch our event
+	var canceled = !elem.dispatchEvent(evt);
+};
+
+const playTurn = (boardState, updateBoardState, playerId) => {
+
+  const availableRows = boardState.top.map((top, idx) =>  (top > 0 ? idx : 0)).filter(top=>!!top);
+  const rowId = availableRows[Math.floor(Math.random() * availableRows.length)];
+
+  // console.log(rowId,"COMP")
+  const entrySlot = getEntrySlot(rowId);
+  
+  const topId = boardState.top[rowId];
+  const targetSlot = getSlot(rowId,topId);
+
+  simulateClick(targetSlot);
+  // const duration = 600;
+  // dropAnimation(entrySlot, targetSlot, duration);
+  
+  // sleep(duration).then(()=>{
+  //   entrySlot.classList.remove(`player-${playerId}`);
+    
+  //   const newBoardState = { ...boardState };
+  //   newBoardState.top[rowId] = topId - 1;
+  //   newBoardState.board[rowId][topId] = playerId;
+  //   newBoardState.lastPlayed = { rowId, slotId: topId };
+  
+  //   updateBoardState(newBoardState);
+  // });
+  
+}
+
+export { initBoardState, handleWin, handleHover, handleClick, playTurn };
