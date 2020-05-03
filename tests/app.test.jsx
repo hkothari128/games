@@ -16,9 +16,9 @@ describe('App', () => {
     expect(container.getElementsByClassName('board').length).toBe(1);
   });
 
-  it('creates 2 player sections', () => {
-    const { container } = render(<App />);
+  // it('creates 2 player sections', () => {
+  //   const { container } = render(<App />);
 
-    expect(container.getElementsByClassName('player-section').length).toBe(2);
-  });
+  //   expect(container.getElementsByClassName('player-section').length).toBe(2);
+  // });
 });

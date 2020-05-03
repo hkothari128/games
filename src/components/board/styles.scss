@@ -1,7 +1,7 @@
 @import '../../mixins/breakpoints.scss';
 
 $slot-dim: 3vw;
-
+$slot-dim-mobile: 5vw;
 .player-1 {
   box-sizing: border-box;
   box-shadow: inset 1px 1px 1px 0.5px;
@@ -29,10 +29,17 @@ $slot-dim: 3vw;
     position: relative;
     top: -0.7em;
     left: 0.7em;
+
+    @include max-width(phone) {
+      height: $slot-dim-mobile;
+      width: $slot-dim-mobile;
+      top: -0.1em;
+      left: 0.1em;
+    }
   }
 
   
-  &__row {
+  &__col {
     background-color: #2288ff;
     display: flex;
     flex-direction: column;
@@ -59,8 +66,8 @@ $slot-dim: 3vw;
 
     @keyframes glowing {
       0% { border: 2px solid green; }
-      40% { border: 5px solid green; }
-      60% { border: 5px solid green; }
+      40% { border: 3px solid green; }
+      60% { border: 3px solid green; }
       100% { border: 2px solid green; }
     }
 
@@ -69,7 +76,9 @@ $slot-dim: 3vw;
     }
 
     @include max-width(phone) {
-      margin: 0.1em;
+      margin: 0.3em;
+      height: $slot-dim-mobile;
+      width: $slot-dim-mobile;
     }
     
   }

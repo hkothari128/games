@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { classList, initBoardState, handleWin, handleHover, handleClick, playTurn } from '../../helpers';
+import { classList, initBoardState, handleWin, handleHover, handleClick, setPointerEvent, sleep } from '../../helpers';
+
 import './styles.scss';
 
 
 
 
-const Board = ({ rows, columns, playerId, togglePlayer, isWin, setWinner, running, computerTurn }) => {
+const Board = ({ rows, columns, playerId, togglePlayer, isWin, setWinner, running, computerTurn, AI }) => {
   const [boardState, updateBoardState] = useState(initBoardState(rows, columns));
-
-  // console.log(computerTurn);
-  // if (computerTurn) {
-  //   playTurn(boardState, updateBoardState, playerId);
-  //   // togglePlayer(playerId);
-  // }
 
   useEffect(()=>{
     if (computerTurn) {
-      playTurn(boardState, updateBoardState, playerId);
-      // togglePlayer(playerId);
+      setPointerEvent("none");
+      sleep(300).then(() => {
+        AI.play( boardState, updateBoardState, playerId);
+      })
     }
   }, [computerTurn])
 
@@ -27,43 +24,40 @@ const Board = ({ rows, columns, playerId, togglePlayer, isWin, setWinner, runnin
     if(boardState.lastPlayed === null){
       return;
     }
-    const { rowId, slotId } = boardState.lastPlayed;
+    const { rowId, colId } = boardState.lastPlayed;
     
-    const winnerSlots = isWin(boardState.board, rowId, slotId);
+    const winnerSlots = isWin(boardState.board, rowId, colId, playerId);
     
     if (winnerSlots) {
       handleWin(winnerSlots);
       setWinner(playerId);
     }
     else {
-      // playTurn(boardState, updateBoardState, playerId);
-      Array.from(document.getElementsByClassName('board__row')).forEach((row)=>{
-        row.style.pointerEvents = "auto";
-      });
       togglePlayer(playerId);
+      setPointerEvent("auto");
     }
   }, [boardState])
 
   return (
     <div className="board">
       {
-        Array(columns).fill(0).map((_, idx_row) => (
-          <div className="board__super-row">
+        Array(columns).fill(0).map((_, idx_col) => (
+          <div className="board__super-col">
             <div className="board__entry">
             </div>
             <div
-                className="board__row"
-                value={ idx_row }
-                onMouseEnter={ running ? () => handleHover('enter', idx_row, boardState, playerId) : undefined }
-                onMouseLeave={ running ? () => handleHover('leave', idx_row, boardState, playerId) : undefined }
-                onClick={ running ? () => handleClick(idx_row, boardState, updateBoardState, playerId) : undefined }
+                className="board__col"
+                value={ idx_col }
+                onMouseEnter={ running ? () => handleHover('enter', idx_col, playerId) : undefined }
+                onMouseLeave={ running ? () => handleHover('leave', idx_col, playerId) : undefined }
+                onClick={ running ? () => handleClick(idx_col, boardState, updateBoardState, playerId) : undefined }
               >
               {
-                Array(rows).fill(0).map((_, idx_slot) => (
+                Array(rows).fill(0).map((_, idx_row) => (
                   <div
-                    key= { idx_slot }
-                    value={ JSON.stringify({ row: idx_row , slot: idx_slot }) }
-                    className={ classList("board__slot",{ [boardState.board[idx_row][idx_slot]]: boardState.board[idx_row][idx_slot] }) }
+                    key= { idx_row }
+                    value={ JSON.stringify({ col: idx_col , row: idx_row }) }
+                    className={ classList("board__slot",{ [boardState.board[idx_row][idx_col]]: boardState.board[idx_row][idx_col] }) }
                   />
                 ))
               }  

@@ -1,90 +1,90 @@
 const slotsToWin = 4;
 
-const isWin = (board, rowId, slotId) => {
-    const target = board[rowId][slotId];
-    console.log(board,rowId,slotId,target)
+const isWin = (board, rowId, colId, target) => {
+    // const target = board[rowId][colId];
+
     return (
-      checkRight(board, rowId, slotId, target) ||
-      checkBottom(board, rowId, slotId, target) ||
-      checkLeftDown(board, rowId, slotId, target) ||
-      checkRightDown(board, rowId, slotId, target)
+      checkRight(board, rowId, colId, target) ||
+      checkBottom(board, rowId, colId, target) ||
+      checkLeftDown(board, rowId, colId, target) ||
+      checkRightDown(board, rowId, colId, target)
     );
 }
 
-const getLeftMost = (board, rowId, slotId, target) => {
-  while( rowId >= 0 && board[rowId][slotId] === target){
+const getLeftMost = (board, rowId, colId, target) => {
+  while( colId >= 0 && board[rowId][colId] === target){
+    colId -=1;
+  }
+  
+  return [rowId, colId + 1];
+}
+
+const getTopRightMost = (board, rowId, colId, target) => {
+  while( rowId >=0 && colId < board.length && board[rowId][colId] === target){
+    rowId -= 1;
+    colId += 1;
+  }
+  
+  return [rowId+1, colId-1];
+}
+
+const getTopLeftMost = (board, rowId, colId, target) => {
+  while( rowId >=0 && colId>=0 && board[rowId][colId] === target){
     rowId -=1;
+    colId -= 1;
   }
   
-  return [rowId+1, slotId];
+  return [rowId+1, colId+1];
 }
 
-const getTopRightMost = (board, rowId, slotId, target) => {
-  while( rowId < board.length && slotId>=0 && board[rowId][slotId] === target){
-    rowId +=1;
-    slotId -= 1;
-  }
-  
-  return [rowId-1, slotId+1];
-}
-
-const getTopLeftMost = (board, rowId, slotId, target) => {
-  while( rowId >=0 && slotId>=0 && board[rowId][slotId] === target){
-    rowId -=1;
-    slotId -= 1;
-  }
-  
-  return [rowId+1, slotId+1];
-}
-
-const checkRight = (board, rowId, slotId, target) => {
-  let [row, slot] = getLeftMost(board, rowId, slotId,target);
+const checkRight = (board, rowId, colId, target) => {
+  let [row, col] = getLeftMost(board, rowId, colId,target);
   let count = 0;
   const selected = []
-  while( row < board.length && board[row][slot] === target){
-    selected.push([row, slot]);
+  while( row < board.length && board[row][col] === target && count < slotsToWin){
+    selected.push([row, col]);
     count += 1;
-    row  += 1;
+    col  += 1;
+  }
+  // selected.push([rowId, colId]);
+  return count === slotsToWin ? selected : false;
+}
+
+const checkBottom = (board, rowId, colId, target) => {
+  let [row, col] = [rowId, colId];
+  let count = 0;
+  const selected = []
+  while( row < board[0].length && board[row][col] === target && count < slotsToWin){
+    selected.push([row, col]);
+    count += 1;
+    row += 1;
   }
   // selected.push([rowId, slotId]);
   return count === slotsToWin ? selected : false;
 }
 
-const checkBottom = (board, rowId, slotId, target) => {
-  let [row, slot] = [rowId, slotId];
+const checkLeftDown = (board, rowId, colId, target) => {
+  let [row, col] = getTopRightMost(board, rowId, colId,target);
   let count = 0;
   const selected = []
-  while( slot < board[0].length && board[row][slot] === target){
-    selected.push([row, slot]);
+  while( row < board.length && col >= 0 && board[row][col] === target && count < slotsToWin){
+    selected.push([row, col]);
     count += 1;
-    slot += 1;
+    col -= 1;
+    row += 1;
   }
   // selected.push([rowId, slotId]);
   return count === slotsToWin ? selected : false;
 }
 
-const checkLeftDown = (board, rowId, slotId, target) => {
-  let [row, slot] = getTopRightMost(board, rowId, slotId,target);
+const checkRightDown = (board, rowId, colId, target) => {
+  let [row, col] = getTopLeftMost(board, rowId, colId,target);
   let count = 0;
   const selected = []
-  while( row>0 && slot < board[0].length && board[row][slot] === target){
-    selected.push([row, slot]);
+  while( row < board.length && col < board[0].length && board[row][col] === target && count < slotsToWin){
+    selected.push([row, col]);
     count += 1;
-    slot += 1;
-    row -= 1;
-  }
-  // selected.push([rowId, slotId]);
-  return count === slotsToWin ? selected : false;
-}
-
-const checkRightDown = (board, rowId, slotId, target) => {
-  let [row, slot] = getTopLeftMost(board, rowId, slotId,target);
-  let count = 0;
-  const selected = []
-  while( row < board.length && slot < board[0].length && board[row][slot] === target){
-    selected.push([row, slot]);
-    count += 1;
-    slot += 1;
+    col += 1;
     row += 1;
   }
   // selected.push([rowId, slotId]);

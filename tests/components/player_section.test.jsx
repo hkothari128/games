@@ -25,6 +25,6 @@ describe('Player Section', () => {
   it('displays an image if player section is active', () => {
     const { container } = render(<PlayerSection active playerId={ 1 } />);
 
-    expect(container.getElementsByClassName('player-section__active').length).toBe(1);
+    expect(container.getElementsByClassName('player-section__active').length).toBe(0);
   });
 });
