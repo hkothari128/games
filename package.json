@@ -10,7 +10,6 @@
     }
   },
   "scripts": {
-    "start": "node index.js",
     "dev": "webpack && webpack-dev-server --open --mode development",
     "build": "webpack",
     "lint": "eslint src/*",
@@ -43,6 +42,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
     "react-router-dom": "^5.1.2",
     "react-testing-library": "^8.0.1",
     "sass": "^1.26.3",
