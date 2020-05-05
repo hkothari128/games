@@ -1,4 +1,4 @@
-.app {
+.game {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -8,4 +8,11 @@
   right: 1.6em;
   top: 50%;
   transform: translateY(-50%);
+
+  &__status {
+    flex-basis: 100%;
+    font-weight: bold;
+    font-size: 3vw;
+    text-align: center;
+  }
 }

@@ -36,8 +36,8 @@ const addClone = (slot) => {
   return clone;
 }
 
-const setPointerEvent = ( value ) => {
-  Array.from(document.querySelectorAll('.board__row')).forEach((row)=>{
+const setPointerEvent = ( value, selector ) => {
+  Array.from(document.querySelectorAll(selector)).forEach((row)=>{
     row.style.pointerEvents = value;
   });
 }

@@ -52,10 +52,11 @@ const isTerminal = (boardState, rowId, colId, playedId, validCols) => {
   // if(boardState.board[4][5]===1) {
   //   console.log(boardState,playerId,validCols);
   // }
-  if(!rowId || !colId) {
+  if(rowId === null || colId === null) {
     return -1;
   }
-  if(isWin(boardState.board,rowId,colId,playedId)){
+
+  if(isWin(boardState.board, rowId, colId, playedId)){
     return playedId;
   }
   // if(boardWin(boardState.board, playerId)) {
@@ -70,6 +71,7 @@ const isTerminal = (boardState, rowId, colId, playedId, validCols) => {
 
 const minimax = (boardState, depth, alpha, beta, playedId, maximizingPlayer, rowId, colId, compID, playerId) => {
   const validCols = getValidCols(boardState);
+
   const terminal = isTerminal(boardState,rowId,colId, playedId, validCols);
   if(terminal !== -1 || depth == 0) {
     if (terminal !== -1){
@@ -77,7 +79,7 @@ const minimax = (boardState, depth, alpha, beta, playedId, maximizingPlayer, row
         case compID: 
           return [null, 100000];
 
-        case playedId:
+        case playerId:
           return [null, -100000];
         
         case 0:

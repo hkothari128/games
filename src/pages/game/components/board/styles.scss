@@ -1,0 +1,85 @@
+@import '../../../../mixins/breakpoints.scss';
+
+$slot-dim: 3vw;
+$slot-dim-mobile: 5vw;
+.player-1 {
+  box-sizing: border-box;
+  box-shadow: inset 1px 1px 1px 0.5px;
+  background-color: red;
+}
+
+.player-2 {
+  box-sizing: border-box;
+  box-shadow: inset 1px 1px 1px 0.5px;
+  background-color: blue;
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5em;
+
+  &__entry {
+    border-radius: 50%;
+    
+    height: $slot-dim;
+    width: $slot-dim;
+    z-index: 1;
+    position: relative;
+    top: -0.7em;
+    left: 0.7em;
+
+    @include max-width(phone) {
+      height: $slot-dim-mobile;
+      width: $slot-dim-mobile;
+      top: -0.1em;
+      left: 0.1em;
+    }
+  }
+
+  
+  &__col {
+    background-color: #2288ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center ; 
+  }
+
+  &__slot {    
+    background-color: #2299ff;
+    border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: inset 1px 1px 1px 0.5px;
+    margin: 0.7em;
+    height: $slot-dim;
+    width: $slot-dim;
+    position: relative;
+    &--1 {
+      background-color: red;
+    }
+
+    &--2 {
+      background-color: blue;
+    }
+
+    @keyframes glowing {
+      0% { border: 2px solid green; }
+      40% { border: 3px solid green; }
+      60% { border: 3px solid green; }
+      100% { border: 2px solid green; }
+    }
+
+    &--winner {
+      animation: glowing 0.5s infinite;
+    }
+
+    @include max-width(phone) {
+      margin: 0.3em;
+      height: $slot-dim-mobile;
+      width: $slot-dim-mobile;
+    }
+    
+  }
+}

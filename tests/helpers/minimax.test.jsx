@@ -188,7 +188,7 @@ describe.only('minimax', () => {
     const top = [7,6,7,7,6,6,7,7];
 
     expect(minimax({board, top}, 2, -Infinity, Infinity, 2, true, null, null, 2, 1)[0]).toEqual(3)
-  })
+  });
 
   it('returns correct score and choice for given configuration (depth 2)(vertical block)', () => {
     const board = [
@@ -204,7 +204,8 @@ describe.only('minimax', () => {
     const top = [7,5,7,7,7,4,7,7];
 
     expect(minimax({board, top}, 2, -Infinity, Infinity, 2, true, null, null, 2, 1)[0]).toEqual(5);
-  })
+  });
+
   it('returns correct score and choice for given configuration (depth 2)(diagonal block)', () => {
     const board = [
       [0,0,0,0,0,0,0,0],
@@ -219,5 +220,5 @@ describe.only('minimax', () => {
     const top = [7,5,7,7,6,5,4,4];
 
     expect(minimax({board, top}, 2, -Infinity, Infinity, 2, true, null, null, 2, 1)[0]).toEqual(7);
-  })
+  });
 });

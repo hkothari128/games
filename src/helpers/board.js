@@ -20,7 +20,7 @@ const handleHover = (action, colId, playerId) => {
 
 
 const handleClick = (colId, boardState, updateBoardState, playerId) => {
-  setPointerEvent("none");
+  setPointerEvent('none', '.board__col');
 
   const entrySlot = getEntrySlot(colId);
   !entrySlot.classList.contains(`player-${playerId}`) && entrySlot.classList.add(`player-${playerId}`);

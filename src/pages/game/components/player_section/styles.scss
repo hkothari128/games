@@ -1,0 +1,11 @@
+@import '../../mixins/breakpoints.scss';
+
+.active-pointer {
+  text-align: center;
+  & img {
+    @include max-width(phone) {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}
