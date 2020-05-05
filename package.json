@@ -10,6 +10,7 @@
     }
   },
   "scripts": {
+    "start": "node index.js",
     "dev": "webpack && webpack-dev-server --open --mode development",
     "build": "webpack",
     "lint": "eslint src/*",
