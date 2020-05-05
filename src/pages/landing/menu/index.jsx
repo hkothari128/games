@@ -8,13 +8,16 @@ const Menu = ({ menuOptions }) => {
     <div className="menu">
       { menuOptions.map((option) => {
 
-        localStorage.setItem("compState", JSON.stringify(
-          { id: option.compId, difficulty: option.difficulty }
-        ));
+        
         return (
           <div className="menu__item">
             <Link to="/game">
-              <button className="menu__button" >
+              <button className="menu__button" onClick={() => {
+                localStorage.setItem(
+                  "compState",
+                  JSON.stringify({ id: option.compId, difficulty: option.difficulty })
+                )
+              }} >
                { option.text }
               </button>
             </Link>
