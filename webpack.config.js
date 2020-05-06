@@ -5,7 +5,7 @@ const HtmlWebpackTemplate = require("html-webpack-template");
 const path = require("path");
 
 const config = {
-  entry: "./src/app.jsx",
+  entry: ["web-animations-js","./src/app.jsx"],
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "bundle.js",

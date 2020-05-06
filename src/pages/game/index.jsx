@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Board from './components/board';
 import Timer from './components/timer';
@@ -58,7 +59,11 @@ const Game = () => {
         AI={ AI }
         />
       <Timer running={ !winner } />
-      {/* <PlayerSection playerId={ 2 } active={ !winner && playerId==2 } /> */}
+      {winner && (
+        <Link to="/">
+          <button>Play another game</button>
+        </Link>
+      )}
     </div>
   );
 };
