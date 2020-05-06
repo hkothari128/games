@@ -59,7 +59,7 @@ const Game = () => {
         AI={ AI }
         />
       <Timer running={ !winner } />
-      {winner && (
+      {!!winner && (
         <Link to="/">
           <button>Play another game</button>
         </Link>
