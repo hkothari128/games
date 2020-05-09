@@ -1,13 +1,13 @@
 const { AI } = require("./AI");
 const { minimax } = require("../helpers");
 
-class Moderate extends AI {
+class Hard extends AI {
 	getRow(boardState) {
 		const compId = this.getId();
 		const playerId = compId === 1 ? 2 : 1;
 		const [rowId, score] = minimax(
 			boardState,
-			2,
+			6,
 			-Infinity,
 			Infinity,
 			compId,
@@ -26,4 +26,4 @@ class Moderate extends AI {
 	}
 }
 
-module.exports = { Moderate };
+module.exports = { Hard };
