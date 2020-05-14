@@ -221,4 +221,20 @@ describe.only('minimax', () => {
 
     expect(minimax({board, top}, 2, -Infinity, Infinity, 2, true, null, null, 2, 1)[0]).toEqual(7);
   });
+
+  it('returns correct score and choice for given configuration (depth 2)(edge case player win)', () => {
+    const board = [
+      [0,1,1,0,1,1,1,0],
+      [1,2,2,1,2,2,2,1],
+      [2,1,2,2,1,1,1,2],
+      [1,2,1,1,2,2,2,1],
+      [2,1,2,2,1,1,2,2],
+      [1,2,2,1,2,2,1,2],
+      [2,1,2,2,1,1,2,1],
+      [1,2,1,1,2,1,1,2],
+    ];
+    const top = [0,-1,-1,0,-1,-1,-1,0];
+
+    expect(minimax({board, top}, 2, -Infinity, Infinity, 2, true, null, null, 2, 1)[0]).toEqual(0);
+  });
 });
