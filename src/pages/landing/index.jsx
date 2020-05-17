@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 import Menu from "./menu";
 
@@ -19,6 +20,7 @@ const LandingPage = () => {
 		<div className="landing">
 			<h1 className="landing__title">CONNECT 4</h1>
 			<Menu menuOptions={menuOptions} />
+			<Link to="/scores"><button className="btn btn-danger">Scores</button></Link>
 		</div>
 	);
 };

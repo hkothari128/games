@@ -39,9 +39,6 @@ const config = {
   resolve: {
     extensions: [".js", ".jsx"]
   },
-  plugins: [
-    new HTMLWebpackPlugin(),
-  ]
 };
 
 module.exports = config;

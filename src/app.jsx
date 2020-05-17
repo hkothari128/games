@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import Game from './pages/game';
 import PageNotFound from './pages/404';
 import LandingPage from './pages/landing';
+import Scores from './pages/scores';
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={ LandingPage } />
         <Route exact path="/game" component={ Game } />
+        <Route exact path="/scores" component={ Scores} />
         <Route exact path="/404" component={ PageNotFound } />
         <Redirect to="/404" />
       </Switch>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 import Board from "./components/board";
 import Timer from "./components/timer";
@@ -15,7 +16,24 @@ const Game = () => {
 	const [playerId, updatePlayer] = useState(1);
 	const [winner, setWinner] = useState(0);
 	const [compState, setComputerState] = useState({});
-
+	const [time, setTime] = useState();
+	
+	let AI;
+	let AIName;
+	switch (compState.difficulty) {
+		case 1:
+			AI = new Easy(compState.id);
+			AIName = "Computer (Easy)";
+			break;
+		case 2:
+			AI = new Moderate(compState.id);
+			AIName = "Computer (Moderate)";
+			break;
+		case 3:
+			AI = new Hard(compState.id);
+			AIName = "Computer (Hard)";
+			break;
+	}
 	// const computerId = 0;
 	// const AI = null;
 	useEffect(() => {
@@ -23,22 +41,20 @@ const Game = () => {
 		console.log(compState, JSON.parse(localStorage.getItem("compState")));
 	}, []);
 
-	let AI;
-	let AIName;
-	switch (compState.difficulty) {
-		case 1:
-			AI = new Easy(compState.id);
-			AIName = "Easy";
-			break;
-		case 2:
-			AI = new Moderate(compState.id);
-			AIName = "Moderate";
-			break;
-		case 3:
-			AI = new Hard(compState.id);
-			AIName = "Hard";
-			break;
-	}
+	useEffect(() => {
+		if(winner && time ) {
+				const player1 = compState.id === 0 ? `Player 1`: compState.id === 2 ? 'Player': AIName;
+				const player2 = compState.id === 0 ? `Player 2`: compState.id === 1 ? 'Player': AIName;
+				const winnerName = compState.id === 0 ? `Player ${winner}`: compState.id !== winner ? 'Player': AIName;
+				
+				const score = {player1, player2, winner: winnerName, time};
+				console.log(score,"score")
+				axios.post("/scoreboard/", score).then((res)=>console.log(res));
+
+		}
+	}, [winner, time])
+
+	
 	// const AI = new Moderate(compState.compId);
 
 	const togglePlayer = (playerId) => {
@@ -63,7 +79,7 @@ const Game = () => {
 				computerTurn={playerId === compState.id}
 				AI={AI}
 			/>
-			<Timer running={!winner} />
+			<Timer running={!winner} setTime={setTime} />
 			{!!winner && (
 				<Link to="/">
 					<button>Play another game</button>

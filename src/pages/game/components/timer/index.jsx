@@ -26,7 +26,7 @@ const initState = ({
   minutes: 0,
   seconds: 0,
 });
-const Timer = ({ running }) => {
+const Timer = ({ running, setTime }) => {
   const [time, updateTime] = useReducer(reducer, initState);
   const [seconds, setSeconds] = useState(time.seconds);
   const [minutes, setMinutes] = useState(time.minutes);
@@ -48,6 +48,11 @@ const Timer = ({ running }) => {
     return ()=>clearInterval(timer);
     
   },[seconds])
+
+  useEffect(() => {
+    if(!running)
+      setTime(`${formatted(hours)}:${formatted(minutes)}:${formatted(seconds)}`);
+  },[running])
   
   return (
     <div className="timer">
