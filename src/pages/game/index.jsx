@@ -6,7 +6,7 @@ import Board from "./components/board";
 import Timer from "./components/timer";
 // import PlayerSection from './components/player_section';
 import { isWin } from "../../helpers";
-import { Easy, Moderate, Hard } from "../../models";
+import { Generic } from "../../models";
 
 import "./styles.scss";
 import { useEffect } from "react";
@@ -15,37 +15,25 @@ import Status from "./components/game_status";
 const Game = () => {
 	const [playerId, updatePlayer] = useState(1);
 	const [winner, setWinner] = useState(0);
-	const [compState, setComputerState] = useState({});
+	const [gameDetails, setGameDetails] = useState({});
 	const [time, setTime] = useState();
 	
-	let AI;
-	let AIName;
-	switch (compState.difficulty) {
-		case 1:
-			AI = new Easy(compState.id);
-			AIName = "Computer (Easy)";
-			break;
-		case 2:
-			AI = new Moderate(compState.id);
-			AIName = "Computer (Moderate)";
-			break;
-		case 3:
-			AI = new Hard(compState.id);
-			AIName = "Computer (Hard)";
-			break;
-	}
-	// const computerId = 0;
-	// const AI = null;
+	const AI = gameDetails.compId && new Generic(gameDetails.compId, gameDetails.compDifficulty);
+	const AIName = gameDetails.compId && `Comp (level ${gameDetails.compDifficulty})`;
+	const playerNames = {
+		1: gameDetails.player1,
+		2: gameDetails.player2,
+	};
+
 	useEffect(() => {
-		setComputerState(JSON.parse(localStorage.getItem("compState")));
-		console.log(compState, JSON.parse(localStorage.getItem("compState")));
+		setGameDetails(JSON.parse(localStorage.getItem("gameDetails")));
 	}, []);
 
 	useEffect(() => {
 		if(winner && time ) {
-				const player1 = compState.id === 0 ? `Player 1`: compState.id === 2 ? 'Player': AIName;
-				const player2 = compState.id === 0 ? `Player 2`: compState.id === 1 ? 'Player': AIName;
-				const winnerName = compState.id === 0 ? `Player ${winner}`: compState.id !== winner ? 'Player': AIName;
+				const player1 = gameDetails.compId === 0 ? playerNames[1] : gameDetails.compId === 2 ? playerNames[1]: AIName;
+				const player2 = gameDetails.compId === 0 ? playerNames[2]: gameDetails.compId === 1 ? playerNames[1]: AIName;
+				const winnerName = gameDetails.compId === 0 ? playerNames[winner]: gameDetails.compId !== winner ? playerNames[1]: AIName;
 				
 				const score = {player1, player2, winner: winnerName, time};
 				console.log(score,"score")
@@ -67,8 +55,9 @@ const Game = () => {
 			<Status
 				playerId={winner || playerId}
 				winner={winner}
-				compId={compState.id}
+				compId={gameDetails.compId}
 				compName={AIName}
+				playerNames={playerNames}
 			/>
 			<Board
 				playerId={playerId}
@@ -76,15 +65,23 @@ const Game = () => {
 				isWin={isWin}
 				setWinner={setWinner}
 				running={!winner}
-				computerTurn={playerId === compState.id}
+				computerTurn={playerId === gameDetails.compId}
 				AI={AI}
 			/>
 			<Timer running={!winner} setTime={setTime} />
-			{!!winner && (
-				<Link to="/">
-					<button>Play another game</button>
-				</Link>
-			)}
+			
+			<div className="row w-50">
+				<div className="col-xl-6">
+					<Link to="/">
+						<button className="btn btn-primary w-100 mb-2" disabled={!winner}>Play another game</button>
+					</Link>
+				</div>
+				<div className="col-xl-6">
+					<Link to="/scores">
+						<button className="btn btn-primary w-100" disabled={!winner}>View Scoreboard</button>
+					</Link>
+				</div>
+			</div>
 		</div>
 	);
 };

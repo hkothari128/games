@@ -1,5 +1,6 @@
-import React, {useState, useEffect, Fragment} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const Scores = () => {
   const [scores, setScores] = useState([]);
@@ -11,12 +12,21 @@ const Scores = () => {
 
   return(
    <div className="container">
-    <h2 className="mb-2 mt-5 text-center"> Score Board</h2>
+    <h2 className="mb-2 mt-5 text-center">
+      Score Board
+      <Link to="/">
+        <i className="fas fa-home ml-2"></i>
+      </Link>
+    </h2>
+    
+    
+    
+    
     <table className="table table-striped">
       <thead>
         <tr>
-          <th>Player 1</th>
-          <th>Player 2</th>
+          <th>Player1</th>
+          <th>Player2</th>
           <th>Winner</th>
           <th>Time</th>           
         </tr>
@@ -32,6 +42,7 @@ const Scores = () => {
         ))}
       </tbody>
     </table>
+    
   </div>
  )
 }

@@ -6,6 +6,7 @@ import Game from './pages/game';
 import PageNotFound from './pages/404';
 import LandingPage from './pages/landing';
 import Scores from './pages/scores';
+import PlayerForm from './pages/player_form';
 
 
 const App = () => {
@@ -13,8 +14,9 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={ LandingPage } />
+        <Route exact path="/game_details" component={ PlayerForm } />
         <Route exact path="/game" component={ Game } />
-        <Route exact path="/scores" component={ Scores} />
+        <Route exact path="/scores" component={ Scores } />
         <Route exact path="/404" component={ PageNotFound } />
         <Redirect to="/404" />
       </Switch>
