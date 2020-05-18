@@ -45,7 +45,7 @@ const PlayerForm = () => {
         return(
             <div className="container form-container">
                 <div className="row align-items-center h-100">
-                    <div className="col-6 mx-auto">
+                    <div className="col-xl-6 mx-auto">
                         <div className="jumbotron">
                             <h4 className="text-center"> Game Details</h4>
                             <hr />
