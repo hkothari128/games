@@ -30,7 +30,7 @@ const client = new Client({
 
 async function readScores() {
   try {
-    const results = await client.query("select * from score_board");
+    const results = await client.query("select * from score_board;");
     console.log(results);
     return results.rows;
   }
@@ -43,7 +43,7 @@ async function addScore(score){
 
 
   const { player1, player2, winner, time } = score;
-  const query = `insert into score_board (player1, player2, winner, time) values ('${player1}','${player2}','${winner}','${time}')`;
+  const query = `insert into score_board (player1, player2, winner, time) values ('${player1}','${player2}','${winner}','${time}');`;
   try {
       await client.query(query);
       return true
