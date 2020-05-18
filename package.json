@@ -36,6 +36,7 @@
     "axios": "^0.19.2",
     "babel-eslint": "^10.1.0",
     "css-loader": "^3.4.2",
+    "dotenv": "^8.2.0",
     "eslint-plugin-react": "^7.19.0",
     "html-webpack-root-plugin": "^0.10.0",
     "identity-obj-proxy": "^3.0.0",

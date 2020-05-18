@@ -2,16 +2,31 @@ const express = require('express');
 const path = require('path');
 const port = process.env.PORT || 8080;
 const app = express();
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({
+    DATABASE_URL: "postgres://postgres:root@localhost:5432/score_board"
+  });
+}
+
 app.use(express.json())
 
-const { Client } = require('pg');
-const client = new Client({
-  user: "postgres",
-  password: "root",
-  host: "127.0.0.1",
-  port: 5432,
-  database: "score_board",
+const { Client, Pool } = require('pg');
+
+console.log(process.env.DATABASE_URL,"URL")
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' && true,
 })
+
+// const client = new Client({
+//   user: "postgres",
+//   password: "root",
+//   host: "127.0.0.1",
+//   port: 5432,
+//   database: "score_board",
+// })
 
 async function readScores() {
   try {
@@ -90,7 +105,7 @@ async function start() {
 
 async function connect() {
     try {
-        await client.connect();
+        await pool.connect();
     }
     catch(e) {
         console.error(`Failed to connect ${e}`)
