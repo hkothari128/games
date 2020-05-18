@@ -17,7 +17,7 @@ console.log(process.env.DATABASE_URL,"URL")
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' && true,
+  ssl: {rejectUnauthorized: false},
 })
 
 // const client = new Client({
