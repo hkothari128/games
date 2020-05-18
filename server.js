@@ -15,7 +15,7 @@ const { Client, Pool } = require('pg');
 
 console.log(process.env.DATABASE_URL,"URL")
 
-const pool = new Pool({
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' && true,
 })
@@ -49,6 +49,7 @@ async function addScore(score){
       return true
       }
       catch(e){
+          console.log(e);
           return false;
       }
 }
@@ -105,7 +106,7 @@ async function start() {
 
 async function connect() {
     try {
-        await pool.connect();
+        await client.connect();
     }
     catch(e) {
         console.error(`Failed to connect ${e}`)
