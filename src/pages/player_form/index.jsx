@@ -3,9 +3,15 @@ import React, {useEffect, useReducer} from 'react';
 import './styles.scss';
 import { Link } from 'react-router-dom';
 
+
+const DEFAULT_DIFFICULTY = 3;
+
 const formReducer = (state, action) => {
     switch (action.type) {
-        case 'setState': return action.payload
+        case 'setState': return {
+            ...action.payload,
+            compDifficulty: action.payload.compDifficulty || DEFAULT_DIFFICULTY,
+        }
 
         case 'setPlayer1': 
         return { ...state, player1: action.payload }
@@ -41,6 +47,8 @@ const PlayerForm = () => {
                 <div className="row align-items-center h-100">
                     <div className="col-6 mx-auto">
                         <div className="jumbotron">
+                            <h4 className="text-center"> Game Details</h4>
+                            <hr />
                             <div className="form-group">
                                 <label htmlFor="player1" > Player 1 Name</label>
                                 <input
@@ -81,6 +89,8 @@ const PlayerForm = () => {
                 <div className="row align-items-center h-100">
                     <div className="col-6 mx-auto">
                         <div className="jumbotron">
+                            <h4 className="text-center"> Game Details</h4>
+                            <hr/>
                             <div className="form-group">
                                 <label htmlFor="player1" > Player Name</label>
                                 <input
@@ -95,11 +105,11 @@ const PlayerForm = () => {
 
                             <div className="form-group">
                                 <label htmlFor="player2" > Computer Difficulty level :</label>
-                                <span id="difficultyVal" className="ml-2">{ gameDetails.compDifficulty || "3" }</span>
+                                <span id="difficultyVal" className="ml-2">{ gameDetails.compDifficulty || DEFAULT_DIFFICULTY }</span>
                                 <input
                                     className="form-control form-container__slider"
                                     type="range"
-                                    value={ gameDetails.compDifficulty || "3" }
+                                    value={ gameDetails.compDifficulty || DEFAULT_DIFFICULTY }
                                     min="1"
                                     max="6"
                                     step="1"

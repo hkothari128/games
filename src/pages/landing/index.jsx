@@ -28,7 +28,7 @@ const LandingPage = () => {
 			<div className="row">
 					<div className="col-xl-6  mb-2 mt-4 ml-auto mr-auto"> 
 						<Link to="/game_details">
-							<button className="btn btn-primary w-100" onClick={() => handleClick({ compId: 0 })}>
+							<button className="btn btn-primary w-100" onClick={() => handleClick({ compId:0 })}>
 								Player vs Player
 							</button>						
 						</Link>
@@ -36,7 +36,7 @@ const LandingPage = () => {
 					<div className="col-xl-6  mb-2 mt-4 ml-auto mr-auto"> 
 						
 					<Link to="/game_details">
-						<button className="btn btn-primary w-100"onClick={() => handleClick({ compId: 2 })}>
+						<button className="btn btn-primary w-100"onClick={() => handleClick({ compId:2 })}>
 							Player vs Comp
 						</button>
 					</Link>
