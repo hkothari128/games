@@ -15,18 +15,18 @@ const { Client, Pool } = require('pg');
 
 console.log(process.env.DATABASE_URL,"URL")
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {rejectUnauthorized: false},
-})
-
 // const client = new Client({
-//   user: "postgres",
-//   password: "root",
-//   host: "127.0.0.1",
-//   port: 5432,
-//   database: "score_board",
+//   connectionString: process.env.DATABASE_URL,
+//   // ssl: {rejectUnauthorized: false},
 // })
+
+const client = new Client({
+  user: "postgres",
+  password: "root",
+  host: "127.0.0.1",
+  port: 5432,
+  database: "score_board",
+})
 
 async function readScores() {
   try {

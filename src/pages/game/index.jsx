@@ -50,33 +50,45 @@ const Game = () => {
 	};
 
 	return (
-		<div className="game">
+		<div className="game mt-4">
 			{/* <PlayerSection playerId={ 1 } active={ !winner && playerId === 1 } /> */}
-			<Status
-				playerId={winner || playerId}
-				winner={winner}
-				compId={gameDetails.compId}
-				compName={AIName}
-				playerNames={playerNames}
-			/>
-			<Board
-				playerId={playerId}
-				togglePlayer={togglePlayer}
-				isWin={isWin}
-				setWinner={setWinner}
-				running={!winner}
-				computerTurn={playerId === gameDetails.compId}
-				AI={AI}
-			/>
-			<Timer running={!winner} setTime={setTime} />
+			<div className="row">
+				<div className="col-12">
+					<Status
+						playerId={winner || playerId}
+						winner={winner}
+						compId={gameDetails.compId}
+						compName={AIName}
+						playerNames={playerNames}
+					/>
+				</div>
+			</div>
+			<div className="row text-center">
+				<div className="d-flex col-md-6 ml-auto mr-auto">
+					<Board
+						playerId={playerId}
+						togglePlayer={togglePlayer}
+						isWin={isWin}
+						setWinner={setWinner}
+						running={!winner}
+						computerTurn={playerId === gameDetails.compId}
+						AI={AI}
+					/>
+				</div>
+			</div>
+			<div className="row">
+				<div className="col-6 ml-auto mr-auto">
+					<Timer running={!winner} setTime={setTime} />
+				</div>
+			</div>
 			
-			<div className="row w-50">
-				<div className="col-xl-6">
+			<div className="row ">
+				<div className="col-xl-3 col-10 ml-auto mr-auto">
 					<Link to="/">
 						<button className="btn btn-primary w-100 mb-2" disabled={!winner}>Play another game</button>
 					</Link>
 				</div>
-				<div className="col-xl-6">
+				<div className="col-xl-3 col-10 mr-auto ml-auto">
 					<Link to="/scores">
 						<button className="btn btn-primary w-100" disabled={!winner}>View Scoreboard</button>
 					</Link>

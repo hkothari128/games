@@ -24,7 +24,13 @@ const App = () => {
   );
 };
 
-const rootElement = document.body;
-ReactDOM.render(<App />, rootElement);
+const rootElement = document.getElementById("app");
+// if (rootElement.hasChildNodes()) {
+//   ReactDOM.hydrate(<App />, rootElement);
+// } else {
+//   ReactDOM.render(<App />, rootElement);
+// }
+ReactDOM.hydrate(<App />, rootElement);
+// ReactDOM.render(<App />, rootElement);
 
 export default App;

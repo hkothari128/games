@@ -30,11 +30,20 @@ const config = {
             loader: "sass-loader",
           },
         ],
-      }
+      },
+      {
+        test: /\.(PNG|jpg)$/,
+        exclude: /node-modules/,
+        use: {
+          loader: "url-loader",
+        },
+      },
     ]
   },
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      index:'index.html'
+    },
   },
   resolve: {
     extensions: [".js", ".jsx"]

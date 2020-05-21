@@ -1,17 +1,19 @@
 @import '../../mixins/breakpoints.scss';
 
 .landing {
-  position: absolute;
-  top:30%;
-  left:50%;
-  transform: translate(-50%,-50%);
+  // position: absolute;
+  // top:30%;
+  // left:50%;
+  // transform: translate(-50%,-50%);
+  width: 50%;
+  margin: auto;
   text-align: center;
 
-  &__title {
-    font-size: 5vw;
+  img {
+    height: 20em;
 
     @include max-width(phone) {
-      font-size: 9vw;
+      height: 10em;
     }
 
   }
