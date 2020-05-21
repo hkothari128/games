@@ -11,12 +11,9 @@ const Scores = () => {
   }, []);
 
   return(
-   <div className="container">
-    <h2 className="mb-2 mt-5 text-center">
+   <div className="container mt-2 pl-0">
+    <h2 className="mb-2 text-center">
       Score Board
-      <Link to="/">
-        <i className="fas fa-home ml-2"></i>
-      </Link>
     </h2>
     
     

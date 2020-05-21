@@ -13,7 +13,7 @@ const handleClick = ({ compId }) => {
 
 const LandingPage = () => {
 	return (
-		<div className="landing">
+		<div className="landing mt-4">
 			<div className="row">
 				<img src={logo} alt="" className="mb-4 ml-auto mr-auto"/>
 			</div>

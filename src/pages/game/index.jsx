@@ -50,7 +50,7 @@ const Game = () => {
 	};
 
 	return (
-		<div className="game mt-4">
+		<div className="game">
 			{/* <PlayerSection playerId={ 1 } active={ !winner && playerId === 1 } /> */}
 			<div className="row">
 				<div className="col-12">

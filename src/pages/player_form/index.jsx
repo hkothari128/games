@@ -43,10 +43,10 @@ const PlayerForm = () => {
 
     if(gameDetails.compId === 0){
         return(
-            <div className="container form-container">
+            <div className="container form-container mt-4">
                 <div className="row align-items-center">
-                    <div className="col-xl-6 mx-auto">
-                        <div className="card">
+                    <div className="col-xl-6 ">
+                        <div className="card p-4">
                             <h4 className="text-center"> Game Details</h4>
                             <hr />
                             <div className="form-group">
@@ -85,9 +85,9 @@ const PlayerForm = () => {
     }
     else {
         return(
-            <div className="container form-container">
+            <div className="container form-container mt-4">
                 <div className="row align-items-center">
-                    <div className="col-xl-6 mx-auto">
+                    <div className="col-xl-6">
                         <div className="card p-4">
                             <h4 className="text-center"> Game Details</h4>
                             <hr/>
