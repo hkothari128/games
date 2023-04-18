@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-import logo from '../../../assets/landing.PNG';
 
 import "./styles.scss";
 
@@ -15,7 +14,7 @@ const LandingPage = () => {
 	return (
 		<div className="landing mt-4">
 			<div className="row">
-				<img src={logo} alt="" className="mb-4 ml-auto mr-auto"/>
+				<h1 className="ml-auto mr-auto">Welcome!</h1>
 			</div>
 			<div className="row">
 					<div className="col-xl-3  mb-2 mt-4 ml-auto "> 

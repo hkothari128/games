@@ -10,6 +10,7 @@
   text-align: center;
 
   img {
+    opacity: 0.75;
     height: 20em;
 
     @include max-width(phone) {

@@ -1,19 +1,27 @@
-const express = require('express');
-const path = require('path');
+// const express = require('express');
+// const path = require('path');
+// const React = require('react-dom')
+// const { renderToString } = require('react-dom/server');
+// const { App } = require('./src/app');
+// const cors = require('cors');
 
+import express from 'express';
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import App from '../app';
+import cors from 'cors';
+import { Client } from 'pg';
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8080;
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({
-    DATABASE_URL: "postgres://postgres:postgres@localhost:5432/score_board"
+    DATABASE_URL: "postgres://postgres:root@localhost:5432/score_board"
   });
 }
 
-app.use(express.json())
-
-const { Client, Pool } = require('pg');
+// const { Client, Pool } = require('pg');
 
 console.log(process.env.DATABASE_URL,"URL")
 
@@ -24,7 +32,7 @@ console.log(process.env.DATABASE_URL,"URL")
 
 const client = new Client({
   user: "postgres",
-  password: "postgres",
+  password: "root",
   host: "127.0.0.1",
   port: 5432,
   database: "score_board",
@@ -32,7 +40,7 @@ const client = new Client({
 
 async function readScores() {
   try {
-    const results = await client.query("select * from score_board;");
+    const results = await client.query("select * from score_board order by id desc;");
     console.log(results);
     return results.rows;
   }
@@ -56,6 +64,7 @@ async function addScore(score){
       }
 }
 
+app.use(cors())
 app.use(express.static(__dirname + '/dist'));
 
 app.get("/scoreboard", async (req, res) => {
@@ -86,9 +95,26 @@ app.post("/scoreboard", async (req, res) => {
  
 })
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '/dist/index.html'))
-});
+app.get("*", (req, res, next) => {
+  const markup = renderToString(
+    React.render(App)
+  );
+
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>SSR with RR</title>
+      </head>
+
+      <body>
+        <div id="app">
+${markup}</div>
+      </body>
+    </html>
+  `
+)
+})
 
 app.listen(port, ()=>console.log('Server started on port ' + port));
 

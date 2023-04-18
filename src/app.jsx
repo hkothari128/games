@@ -14,10 +14,10 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={ LandingPage } />
-        <Route exact path="/game_details" component={ PlayerForm } />
-        <Route exact path="/game" component={ Game } />
-        <Route exact path="/scores" component={ Scores } />
-        <Route exact path="/404" component={ PageNotFound } />
+        <Route exact  path="/game_details" component={ PlayerForm } />
+        <Route exact  path="/game" component={ Game } />
+        <Route exact  path="/scores" component={ Scores } />
+        <Route exact  path="/404" component={ PageNotFound } />
         <Redirect to="/404" />
       </Switch>
     </Router>
@@ -25,12 +25,12 @@ const App = () => {
 };
 
 const rootElement = document.getElementById("app");
+ReactDOM.hydrate(<App />, rootElement);
 // if (rootElement.hasChildNodes()) {
 //   ReactDOM.hydrate(<App />, rootElement);
 // } else {
 //   ReactDOM.render(<App />, rootElement);
 // }
-ReactDOM.hydrate(<App />, rootElement);
 // ReactDOM.render(<App />, rootElement);
 
 export default App;

@@ -45,7 +45,7 @@ const PlayerForm = () => {
         return(
             <div className="container form-container mt-4">
                 <div className="row align-items-center">
-                    <div className="col-xl-6 ">
+                    <div className="col-xl-6 ml-auto mr-auto ">
                         <div className="card p-4">
                             <h4 className="text-center"> Game Details</h4>
                             <hr />
@@ -87,7 +87,7 @@ const PlayerForm = () => {
         return(
             <div className="container form-container mt-4">
                 <div className="row align-items-center">
-                    <div className="col-xl-6">
+                    <div className="col-xl-6 ml-auto mr-auto">
                         <div className="card p-4">
                             <h4 className="text-center"> Game Details</h4>
                             <hr/>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 const Scores = () => {
   const [scores, setScores] = useState([]);
@@ -44,5 +45,8 @@ const Scores = () => {
  )
 }
   
-
+// const rootElement = document.getElementById("app");
+// ReactDOM.hydrate(<Scores />, rootElement);
+const rootElement = document.getElementById("app");
+ReactDOM.render(<Scores />, rootElement);
 export default Scores;
