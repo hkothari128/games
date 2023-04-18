@@ -7,7 +7,7 @@ const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({
-    DATABASE_URL: "postgres://postgres:postgres@localhost:5432/score_board"
+    DATABASE_URL: "postgres://jjsuqhtz:lHNPXsI-KG9LYBVR04sT0nSdwVtjaR2i@john.db.elephantsql.com/jjsuqhtz"
   });
 }
 
@@ -23,11 +23,11 @@ console.log(process.env.DATABASE_URL,"URL")
 // })
 
 const client = new Client({
-  user: "postgres",
-  password: "postgres",
-  host: "127.0.0.1",
+  user: "jjsuqhtz",
+  password: "lHNPXsI-KG9LYBVR04sT0nSdwVtjaR2i",
+  host: "john.db.elephantsql.com",
   port: 5432,
-  database: "score_board",
+  database: "jjsuqhtz",
 })
 
 async function readScores() {
@@ -43,7 +43,7 @@ async function readScores() {
 
 async function addScore(score){
 
-
+  
   const { player1, player2, winner, time } = score;
   const query = `insert into score_board (player1, player2, winner, time) values ('${player1}','${player2}','${winner}','${time}');`;
   try {
@@ -96,6 +96,24 @@ start()
 
 async function start() {
     await connect();
+    const createQuery = `CREATE TABLE IF NOT EXISTS score_board
+  (
+      id SERIAL PRIMARY KEY,
+      player1 character varying NOT NULL,
+      player2 character varying NOT NULL,
+      winner character varying NOT NULL,
+      time character varying,
+      steps bigint
+  );`
+  try {
+    await client.query(createQuery);
+    return true
+    }
+    catch(e){
+        console.log(e);
+        return false;
+    }
+
     /*
     const todos = await readTodos();
     console.log(todos)
