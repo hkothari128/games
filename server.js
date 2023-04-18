@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 80;
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
