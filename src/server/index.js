@@ -1,27 +1,19 @@
-// const express = require('express');
-// const path = require('path');
-// const React = require('react-dom')
-// const { renderToString } = require('react-dom/server');
-// const { App } = require('./src/app');
-// const cors = require('cors');
+const express = require('express');
+const path = require('path');
 
-import express from 'express';
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import App from '../app';
-import cors from 'cors';
-import { Client } from 'pg';
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8081;
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({
-    DATABASE_URL: "postgres://postgres:root@localhost:5432/score_board"
+    DATABASE_URL: "postgres://jjsuqhtz:lHNPXsI-KG9LYBVR04sT0nSdwVtjaR2i@john.db.elephantsql.com/jjsuqhtz"
   });
 }
 
-// const { Client, Pool } = require('pg');
+app.use(express.json())
+
+const { Client, Pool } = require('pg');
 
 console.log(process.env.DATABASE_URL,"URL")
 
@@ -31,16 +23,16 @@ console.log(process.env.DATABASE_URL,"URL")
 // })
 
 const client = new Client({
-  user: "postgres",
-  password: "root",
-  host: "127.0.0.1",
+  user: "jjsuqhtz",
+  password: "lHNPXsI-KG9LYBVR04sT0nSdwVtjaR2i",
+  host: "john.db.elephantsql.com",
   port: 5432,
-  database: "score_board",
+  database: "jjsuqhtz",
 })
 
 async function readScores() {
   try {
-    const results = await client.query("select * from score_board order by id desc;");
+    const results = await client.query("select * from score_board;");
     console.log(results);
     return results.rows;
   }
@@ -51,7 +43,7 @@ async function readScores() {
 
 async function addScore(score){
 
-
+  
   const { player1, player2, winner, time } = score;
   const query = `insert into score_board (player1, player2, winner, time) values ('${player1}','${player2}','${winner}','${time}');`;
   try {
@@ -64,7 +56,6 @@ async function addScore(score){
       }
 }
 
-app.use(cors())
 app.use(express.static(__dirname + '/dist'));
 
 app.get("/scoreboard", async (req, res) => {
@@ -95,26 +86,9 @@ app.post("/scoreboard", async (req, res) => {
  
 })
 
-app.get("*", (req, res, next) => {
-  const markup = renderToString(
-    React.render(App)
-  );
-
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>SSR with RR</title>
-      </head>
-
-      <body>
-        <div id="app">
-${markup}</div>
-      </body>
-    </html>
-  `
-)
-})
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '/dist/index.html'))
+});
 
 app.listen(port, ()=>console.log('Server started on port ' + port));
 
@@ -122,6 +96,24 @@ start()
 
 async function start() {
     await connect();
+    const createQuery = `CREATE TABLE IF NOT EXISTS score_board
+  (
+      id SERIAL PRIMARY KEY,
+      player1 character varying NOT NULL,
+      player2 character varying NOT NULL,
+      winner character varying NOT NULL,
+      time character varying,
+      steps bigint
+  );`
+  try {
+    await client.query(createQuery);
+    return true
+    }
+    catch(e){
+        console.log(e);
+        return false;
+    }
+
     /*
     const todos = await readTodos();
     console.log(todos)
