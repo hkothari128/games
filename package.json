@@ -12,7 +12,7 @@
   "scripts": {
     "postinstall": "webpack -p",
     "start": "node server.js",
-    "dev": "webpack --mode development && node server.js",
+    "dev": "webpack --mode development",
     "build": "webpack",
     "lint": "eslint src/*",
     "test": "jest"
