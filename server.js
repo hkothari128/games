@@ -58,6 +58,13 @@ async function addScore(score){
 
 app.use(express.static(__dirname + '/dist'));
 
+app.get("/hello/", async (req, res) => {
+  // const rows = await readScores();
+  
+  res.setHeader("content-type", "application/json");
+  res.send(JSON.stringify({name:'hello worlds'}));
+})
+
 app.get("/scoreboard/", async (req, res) => {
   const rows = await readScores();
   
