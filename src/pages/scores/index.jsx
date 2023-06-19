@@ -30,7 +30,7 @@ const Scores = () => {
         </tr>
       </thead>
       <tbody>
-        {scores.map((score) => (
+        {scores?.map((score) => (
           <tr key={score.id}>
             <td>{score.player1}</td>
             <td>{score.player2}</td>

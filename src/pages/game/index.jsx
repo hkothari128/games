@@ -37,7 +37,7 @@ const Game = () => {
 				
 				const score = {player1, player2, winner: winnerName, time};
 				console.log(score,"score")
-				axios.post("/scoreboard/", score).then((res)=>console.log(res));
+				axios.post(`${process.env.API_URL || 'localhost/'}scoreboard/`, score).then((res)=>console.log(res));
 
 		}
 	}, [winner, time])
