@@ -1,33 +1,34 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
 
 
 const port = process.env.PORT || 3000;
-const app = express();
+// const dbString = process.env.DATABASE_URL || 'not configured';
+const dbUser = process.env.DATABASE_USER || 'ixbprjtv';
+const dbPassword = process.env.DATABASE_PASSWORD || 'Zh1ThvrhHh81mdQfJoW3vJqRSBDgVvV4';
+const dbHost = process.env.DATABASE_HOST || 'john.db.elephantsql.com';
+const dbName = process.env.DATABASE_NAME || dbUser;
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({
-    DATABASE_URL: "postgresql://hikothari128:T8R5DgJqWBbL@ep-summer-queen-096700.ap-southeast-1.aws.neon.tech/neondb"
-  });
-}
+const app = express();
 
 app.use(express.json())
 
 const { Client, Pool } = require('pg');
 
-console.log(process.env.DATABASE_URL,"URL")
+// console.log(dbString,"URL")
 
 // const client = new Client({
-//   connectionString: process.env.DATABASE_URL,
+//   connectionString: dbString,
 //   // ssl: {rejectUnauthorized: false},
 // })
 
 const client = new Client({
-  user: "ixbprjtv",
-  password: "Zh1ThvrhHh81mdQfJoW3vJqRSBDgVvV4",
-  host: "john.db.elephantsql.com",
+  user: dbUser,
+  password: dbPassword,
+  host: dbHost,
   port: 5432,
-  database: "ixbprjtv",
+  database:dbName
 })
 
 async function readScores() {
