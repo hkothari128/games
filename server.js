@@ -7,7 +7,7 @@ const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({
-    DATABASE_URL: "postgres://jjsuqhtz:lHNPXsI-KG9LYBVR04sT0nSdwVtjaR2i@john.db.elephantsql.com/jjsuqhtz"
+    DATABASE_URL: "postgresql://hikothari128:T8R5DgJqWBbL@ep-summer-queen-096700.ap-southeast-1.aws.neon.tech/neondb"
   });
 }
 
@@ -23,11 +23,11 @@ console.log(process.env.DATABASE_URL,"URL")
 // })
 
 const client = new Client({
-  user: "jjsuqhtz",
-  password: "lHNPXsI-KG9LYBVR04sT0nSdwVtjaR2i",
+  user: "ixbprjtv",
+  password: "Zh1ThvrhHh81mdQfJoW3vJqRSBDgVvV4",
   host: "john.db.elephantsql.com",
   port: 5432,
-  database: "jjsuqhtz",
+  database: "ixbprjtv",
 })
 
 async function readScores() {
@@ -126,7 +126,9 @@ async function start() {
 
 async function connect() {
     try {
+      console.log("CONNECTING TO PG CLIENT")
         await client.connect();
+        console.log(client)
     }
     catch(e) {
         console.error(`Failed to connect ${e}`)
