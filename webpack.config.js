@@ -1,7 +1,7 @@
 const webpack = require("webpack");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
-const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
-const HtmlWebpackTemplate = require("html-webpack-template");
+// const HTMLWebpackPlugin = require("html-webpack-plugin");
+// const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
+// const HtmlWebpackTemplate = require("html-webpack-template");
 const path = require("path");
 
 const config = {
