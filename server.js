@@ -58,7 +58,7 @@ async function addScore(score){
 
 app.use(express.static(__dirname + '/dist'));
 
-app.get("/scoreboard", async (req, res) => {
+app.get("/scoreboard/", async (req, res) => {
   const rows = await readScores();
   
   res.setHeader("content-type", "application/json");
@@ -66,7 +66,7 @@ app.get("/scoreboard", async (req, res) => {
 })
 
 
-app.post("/scoreboard", async (req, res) => {
+app.post("/scoreboard/", async (req, res) => {
   
   let result = {}
   try{
