@@ -7,7 +7,7 @@ const Scores = () => {
   const [scores, setScores] = useState([]);
 
   useEffect(()=>{
-    axios.get("/scoreboard/")
+    axios.get(`https://c4backend-hkothari128.vercel.app/scoreboard/`)
     .then((results)=>setScores(results.data))
   }, []);
 
